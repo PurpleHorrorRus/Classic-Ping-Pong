@@ -1,6 +1,6 @@
 public class Player2 {
-	static double x = 735; //Координаты
-	static double y = 165.0;
+	static double x = 745; //Coordinates
+	static double y = 165;
 	
 	public static void setPos(double x, double y){
 		Player2.x = x;
