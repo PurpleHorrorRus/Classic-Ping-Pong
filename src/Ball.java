@@ -40,7 +40,7 @@ public class Ball {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(pong){
-					if(Render.ball.intersects(Render.playerRectangle)){
+					if(Render.ball.intersects(Render.playerRectangle[0])){
 						Game.playSound("ping.wav");
 						ping = true;
 						pong = false;
@@ -48,7 +48,7 @@ public class Ball {
 					}
 					if(getBallY() > Ball.destY) y--;
 					if(getBallX() > Ball.destX) x--;
-					if(getBallX() < 0 && !Render.ball.intersects(Render.playerRectangle)) Game.reset();
+					if(getBallX() < 0 && !Render.ball.intersects(Render.playerRectangle[0])) Game.reset();
 					if(getBallY() < Ball.destY) y++;
 					
 					if(getBallY() <= 0){
@@ -63,7 +63,7 @@ public class Ball {
 				}
 				
 				if(ping){
-					if(Render.ball.intersects(Render.player2Rectangle)){
+					if(Render.ball.intersects(Render.playerRectangle[1])){
 						Game.playSound("ping.wav");
 						pong = true;
 						ping = false;
@@ -72,7 +72,7 @@ public class Ball {
 					
 					if(getBallY() > Ball.destY) y--;
 					if(getBallX() < Ball.destX) x++;
-					if(getBallX() > 800 && !Render.ball.intersects(Render.player2Rectangle)) Game.reset();
+					if(getBallX() > 800 && !Render.ball.intersects(Render.playerRectangle[1])) Game.reset();
 					if(getBallY() < Ball.destY) y++;
 					
 					if(getBallY() <= 0){
