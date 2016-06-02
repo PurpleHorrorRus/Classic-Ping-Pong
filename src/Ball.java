@@ -1,3 +1,5 @@
+package Main;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,19 +16,25 @@ public class Ball {
 	 * <- pong
 	 */
 	
-	static boolean ping, pong;
+	public static boolean ping, pong;
 	
-	static int x = (int) Player.getX()+50;
+	static int x = (int) Player.getX(0)+50;
 	static int y;
 	
-	static int destX, destY;
+	static int sizeX = 50, sizeY = 50;
+	
+	public static int destX;
+
+	static int destY;
+	
+	static int[] toSpellCount = new int[2];
 	
 	static Timer move;
 	
 	public static void setDestination(int destX, int destY){
 		Ball.destX = destX;
 		Ball.destY = destY;
-		Ball.y = (int) Player.getY();
+		Ball.y = (int) Player.getY(0);
 		move = new Timer(1, new ActionListener() {
 			
 			@Override
@@ -64,7 +72,7 @@ public class Ball {
 					
 					if(getBallY() > Ball.destY) y--;
 					if(getBallX() < Ball.destX) x++;
-					if(getBallX() > 700 && !Render.ball.intersects(Render.player2Rectangle)) Game.reset();
+					if(getBallX() > 800 && !Render.ball.intersects(Render.player2Rectangle)) Game.reset();
 					if(getBallY() < Ball.destY) y++;
 					
 					if(getBallY() <= 0){
@@ -84,6 +92,22 @@ public class Ball {
 	
 	static int setRandom(int Min, int Max){
 		return Min + (int)(Math.random() * ((Max - Min) + 1));
+	}
+	
+	public static int getSizeX(){
+		return Ball.sizeX;
+	}
+	
+	static int getSizeY(){
+		return Ball.sizeY;
+	}
+	
+	public static void setSizeX(int size){
+		Ball.sizeX = size;
+	}
+	
+	public static void setSizeY(int size){
+		Ball.sizeY = size;
 	}
 	
 	public static int getBallX(){
