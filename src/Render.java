@@ -1,3 +1,5 @@
+package Main;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 
@@ -9,22 +11,28 @@ public class Render extends JPanel {
 	
 	@Override
 	protected void paintComponent(java.awt.Graphics g) {
+		super.paintComponent(g);
+		
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, getWidth(), getHeight());				
-		playerRectangle.setLocation((int)Player.getX(), (int)Player.getY());
-		player2Rectangle.setLocation((int)Player2.getX(), (int)Player2.getY());
+		g.fillRect(0, 0, getWidth(), getHeight());
+						
+		playerRectangle.setLocation((int)Player.getX(0), (int)Player.getY(0));
+		player2Rectangle.setLocation((int)Player.getX(1), (int)Player.getY(1));
 		g.setColor(Color.WHITE);
-		g.fillRect((int) Player.getX(), (int) Player.getY(), 50, 200);
-		g.fillRect((int) Player2.getX(), (int) Player2.getY(), 50, 200);
+		g.fillRect((int) Player.getX(0), (int) Player.getY(0), 50, 200);
+		g.fillRect((int) Player.getX(1), (int) Player.getY(1), 50, 200);
 		
 		if(!Game.started) 
 		{ 
-			g.fillOval(Ball.getBallX(), (int) Player.getY(), 50, 50);  
-			ball.setLocation(Ball.getBallX(), (int) Player.getY()); 
+			g.fillOval(Ball.getBallX(), (int) Player.getY(0), Ball.getSizeX(), Ball.getSizeY());  
+			ball.setLocation(Ball.getBallX(), (int) Player.getY(0));
+			ball.setSize(Ball.getSizeX(), Ball.getSizeY());
 		}
 		
-		else { g.fillOval(Ball.getBallX(), Ball.getBallY(), 50, 50); 
-		ball.setLocation(Ball.getBallX(), Ball.getBallY()); }
+		else { g.fillOval(Ball.getBallX(), Ball.getBallY(), Ball.getSizeX(), Ball.getSizeY()); 
+			ball.setLocation(Ball.getBallX(), Ball.getBallY());
+			ball.setSize(Ball.getSizeX(), Ball.getSizeY());
+		}
 		
 		Keyboard.tick();
 		this.repaint();
