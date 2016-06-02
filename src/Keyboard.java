@@ -37,19 +37,16 @@ public class Keyboard extends KeyAdapter {
 			break;
 		case KeyEvent.VK_S:
 			setVelY(0, 0.5);
-			
 			break;
 		case KeyEvent.VK_W:
 			setVelY(0, -0.5);
 			break;
 		case KeyEvent.VK_SPACE:
-			if(!Game.started){
-				Game.start();
-			}
+			if(!Game.started) Game.start();
 			break;
 		case KeyEvent.VK_N:
-			if(!NPC) { NPC = true; }
-			else { NPC = false; }
+			if(!NPC) NPC = true;
+			else NPC = false;
 			break;
 		}
 	}
@@ -60,12 +57,9 @@ public class Keyboard extends KeyAdapter {
 	}
 	
 	static void tick(){
-		y[0] += velY[0];
-		y[1] += velY[1];
+		for(int i = 0; i < 2; i++) y[i] += velY[i];
 		Player.setPos(0, Player.getX(0), (int)y[0]);
-		if(NPC){ Player.setPos(1, Player.getX(1), Ball.getBallY()*coefficientToWinNPC); }
-		else{ Player.setPos(1, Player.getX(1), (int)y[1]); }
-
-	}
-	
+		if(NPC) Player.setPos(1, Player.getX(1), Ball.getBallY()*coefficientToWinNPC);
+		else Player.setPos(1, Player.getX(1), (int)y[1]);
+	}	
 }
