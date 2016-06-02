@@ -57,7 +57,8 @@ public class Keyboard extends KeyAdapter {
 	}
 	
 	static void tick(){
-		for(int i = 0; i < 2; i++) y[i] += velY[i];
+		y[0] += velY[0];
+		y[1] += velY[1];
 		Player.setPos(0, Player.getX(0), (int)y[0]);
 		if(NPC) Player.setPos(1, Player.getX(1), Ball.getBallY()*coefficientToWinNPC);
 		else Player.setPos(1, Player.getX(1), (int)y[1]);
