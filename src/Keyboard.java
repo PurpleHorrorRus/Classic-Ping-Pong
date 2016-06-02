@@ -1,21 +1,27 @@
+package Main;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Keyboard extends KeyAdapter {
-
-	static double velY = 0;
-	static double y = (double) Player.getY();
 	
-	static double velY2 = 0;
-	static double y2 = (double) Player2.getY();
+	static double[] velY = new double[2];
+	static double[] y = new double[2];
 	
 	static boolean NPC = false;
 	static double coefficientToWinNPC = 0.6;
 	
+	public static void init(){
+		for(int i = 0; i < 2; i++){
+			velY[i] = 0;
+			y[i] = (double) Player.getY(i);
+		}
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		setVelY(0);
-		setVelY2(0);
+		setVelY(0, 0);
+		setVelY(1, 0);
 	}
 	
 	@Override
@@ -24,17 +30,17 @@ public class Keyboard extends KeyAdapter {
 		int key = e.getKeyCode();
 		switch(key){
 		case KeyEvent.VK_DOWN: 
-			setVelY2(0.5);
+			setVelY(1, 0.5);
 			break;
 		case KeyEvent.VK_UP:
-			setVelY2(-0.5);
+			setVelY(1, -0.5);
 			break;
 		case KeyEvent.VK_S:
-			setVelY(0.5);
+			setVelY(0, 0.5);
 			
 			break;
 		case KeyEvent.VK_W:
-			setVelY(-0.5);
+			setVelY(0, -0.5);
 			break;
 		case KeyEvent.VK_SPACE:
 			if(!Game.started){
@@ -49,20 +55,17 @@ public class Keyboard extends KeyAdapter {
 	}
 	
 	
-	public static void setVelY(double velY){
-		Keyboard.velY = velY;
-	}
-	
-	public static void setVelY2(double velY){
-		Keyboard.velY2 = velY;
+	public static void setVelY(int playerid, double velY){
+		Keyboard.velY[playerid] = velY;
 	}
 	
 	static void tick(){
-		y += velY;
-		y2 += velY2;
-		Player.setPos(Player.getX(), (int)y);
-		if(NPC){ Player2.setPos(Player2.getX(), Ball.getBallY()*coefficientToWinNPC); }
-		else{ Player2.setPos(Player2.getX(), (int)y2); }
+		y[0] += velY[0];
+		y[1] += velY[1];
+		Player.setPos(0, Player.getX(0), (int)y[0]);
+		if(NPC){ Player.setPos(1, Player.getX(1), Ball.getBallY()*coefficientToWinNPC); }
+		else{ Player.setPos(1, Player.getX(1), (int)y[1]); }
+
 	}
 	
 }
